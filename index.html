@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ebik.</title>
+    <link rel="stylesheet" href="style.css"> 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="logo1.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .feedback-item {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .active-tab {
+            border-bottom: 3px solid #667eea;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        input[name="profilePic"]:checked + img {
+             border: 3px solid #3b82f6; /* Tailwind blue-500 */}
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+<!-- Navigation -->
+<nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo Section -->
+      <div class="flex items-center">
+        <a href="index.html" class="flex items-center">
+          <img src="Ebik.png" alt="My New Logo" class="h-8 w-auto">
+          <span class="ml-3 text-xl font-bold text-gray-800">Ebik.</span>
+        </a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#home" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-lg font-semibold tracking-wide transition-colors">Home</a>
+        <a href="#services" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-lg font-semibold tracking-wide transition-colors">Services</a>
+        <a href="#contact" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-lg font-semibold tracking-wide transition-colors">Contact</a>
+        <a href="#feedback" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-lg font-semibold tracking-wide transition-colors">Feedback</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden flex items-center">
+        <button id="mobileMenuButton" class="text-gray-700 focus:outline-none focus:text-blue-600">
+          <i class="fas fa-bars fa-lg"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobileMenu" class="md:hidden hidden px-4 pb-4">
+    <a href="#home" class="block text-gray-700 hover:text-blue-600 py-2 text-base font-medium">Home</a>
+    <a href="#services" class="block text-gray-700 hover:text-blue-600 py-2 text-base font-medium">Services</a>
+    <a href="#contact" class="block text-gray-700 hover:text-blue-600 py-2 text-base font-medium">Contact</a>
+    <a href="#feedback" class="block text-gray-700 hover:text-blue-600 py-2 text-base font-medium">Feedback</a>
+  </div>
+</nav>
+
+    <!-- Home Section -->
+    <section id="home" class="pt-5 hero-gradient text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-bold mb-1">Ebik.</h1>
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Laptop/Phone Repair & Upgrade Services</h1>
+                    <p class="text-xl mb-8 text-blue-100">Ebik. offer laptop/phone repairs, upgrades, and maintenance at affordable prices, giving you reliable performance and peace of mind. From battery replacements to SSD upgrades, Ebik. laptop/phone services keep your device fast, efficient, and ready for work or play.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#services" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                            Our Services
+                        </a>
+                        <a href="#contact" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                            Get Quote
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img src="bg-1.jpg" alt="Professional laptop repair technician working on modern laptop with specialized tools in a clean workshop environment" class="rounded-lg shadow-2xl">
+                    <div class="absolute -bottom-4 -right-4 bg-white p-4 rounded-lg shadow-lg">
+                        <div class="flex items-center">
+                            <div class="w-3 h-3 bg-green-400 rounded-full mr-2"></div>
+                            <span class="text-sm font-semibold text-gray-800">12/7 Support Available</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+        <section class="bg-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+            <div id="statLaptops" class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">0</div>
+            <div class="text-gray-600">Laptops/Mobile Repaired</div>
+        </div>
+        <div>
+            <div id="statSuccess" class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">0%</div>
+            <div class="text-gray-600">Success Rate %</div>
+        </div>
+        <div>
+            <div id="statTurnaround" class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">0</div>
+            <div class="text-gray-600">Avg. Turnaround</div>
+        </div>
+        <div>
+            <div id="statClients" class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">0</div>
+            <div class="text-gray-600">Happy Clients</div>
+        </div>
+        </div>
+    </div>
+    </section>
+
+    <!-- Services Section -->
+<section id="services" class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Services</h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">Choose between Laptop or Phone services</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex justify-center mb-8">
+      <button id="laptopTab" class="px-6 py-2 text-lg font-semibold border-b-4 border-blue-600 text-blue-600 focus:outline-none">
+        Laptop Services
+      </button>
+      <button id="phoneTab" class="px-6 py-2 text-lg font-semibold border-b-4 border-transparent text-gray-600 hover:text-blue-600 hover:border-blue-300 focus:outline-none">
+        Phone Services
+      </button>
+    </div>
+
+    <!-- Laptop Services -->
+    <div id="laptopServices" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- RAM Upgrade -->
+      <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-memory text-blue-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">RAM Upgrade</h3>
+        <p class="text-gray-600 mb-4">Boost your laptop's performance with high-speed memory upgrades for faster multitasking.</p>
+        <div class="flex justify-between items-center">
+          <span class="text-2xl font-bold text-blue-600">From RM45</span>
+          <button onclick="window.open('https://wa.me/60173045090?text=hello%20can%20i%20know%20further%20about%20RAM%20Upgrade.','_blank')" 
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+      </div>
+
+      <!-- SSD Installation -->
+      <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-hdd text-green-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">SSD Installation</h3>
+        <p class="text-gray-600 mb-4">Replace your old HDD with blazing-fast SSD storage for instant performance improvement.</p>
+        <div class="flex justify-between items-center">
+          <span class="text-2xl font-bold text-green-600">From RM60</span>
+          <button onclick="window.open('https://wa.me/60173045090?text=hello%20can%20i%20know%20further%20about%20SSD%20Replacement.','_blank')" 
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+      </div>
+
+      <!-- Battery Replacement -->
+      <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-battery-full text-purple-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">Battery Replacement</h3>
+        <p class="text-gray-600 mb-4">Get genuine battery replacements that restore your laptop's original battery life.</p>
+        <div class="flex justify-between items-center">
+          <span class="text-2xl font-bold text-purple-600">From RM100</span>
+          <button onclick="window.open('https://wa.me/60173045090?text=hello%20can%20i%20know%20further%20about%20Battery%20Replacement.','_blank')" 
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+      </div>
+
+      <!-- Major Services -->
+      <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-tools text-red-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">Major Services</h3>
+        <p class="text-gray-600 mb-4">Clean inside hardware, fans cleaning, change thermal paste, change thermal pad.</p>
+        <div class="flex justify-between items-center">
+          <span class="text-2xl font-bold text-red-600">From RM20</span>
+          <button onclick="window.open('https://wa.me/60173045090?text=hello%20can%20i%20know%20further%20about%20major%20service.%3F','_blank')" 
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+      </div>
+
+      <!-- OS Install -->
+      <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+          <i class="fas fa-desktop text-orange-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">Custom OS / Clean Windows Install</h3>
+        <p class="text-gray-600 mb-4">Install / Reinstall operating system based on requests.</p>
+        <div class="flex justify-between items-center">
+          <span class="text-2xl font-bold text-orange-600">From RM35</span>
+          <button onclick="window.open('https://wa.me/60173045090?text=hello%20can%20i%20know%20further%20about%20Custom%20OS%20%2F%20Clean%20Windows%20Install.','_blank')" 
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+      </div>
+    </div>
+
+        <!-- Phone Services -->
+    <div id="phoneServices" class="hidden grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    
+    <!-- LCD Replacement -->
+    <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+        <i class="fas fa-mobile text-pink-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">LCD Replacement</h3>
+        <p class="text-gray-600 mb-4">Fix broken or cracked screens with genuine LCD replacements.</p>
+        <div class="flex justify-between items-center">
+        <span class="text-2xl font-bold text-pink-600">From RM100</span>
+        <button onclick="window.open('https://wa.me/60173045090?text=Hello%20can%20I%20know%20further%20about%20LCD%20Replacement.','_blank')" 
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+    </div>
+
+    <!-- Battery Replacement -->
+    <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+        <i class="fas fa-battery-half text-green-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">Battery Replacement</h3>
+        <p class="text-gray-600 mb-4">Replace old or swollen batteries for better performance and safety.</p>
+        <div class="flex justify-between items-center">
+        <span class="text-2xl font-bold text-green-600">From RM70</span>
+        <button onclick="window.open('https://wa.me/60173045090?text=Hello%20can%20I%20know%20further%20about%20Phone%20Battery%20Replacement.','_blank')" 
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+    </div>
+
+    <!-- Housing Replacement -->
+    <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+        <i class="fas fa-tools text-yellow-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">Housing Replacement</h3>
+        <p class="text-gray-600 mb-4">Replace damaged casings and housings to make your phone look brand new.</p>
+        <div class="flex justify-between items-center">
+        <span class="text-2xl font-bold text-yellow-600">From RM80</span>
+        <button onclick="window.open('https://wa.me/60173045090?text=Hello%20can%20I%20know%20further%20about%20Phone%20Housing%20Replacement.','_blank')" 
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+    </div>
+
+    <!-- Major Services -->
+    <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+        <i class="fas fa-cogs text-purple-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">Major Services</h3>
+        <p class="text-gray-600 mb-4">Phone cleaning, motherboard servicing, and performance tuning.</p>
+        <div class="flex justify-between items-center">
+        <span class="text-2xl font-bold text-purple-600">From RM20</span>
+        <button onclick="window.open('https://wa.me/60173045090?text=Hello%20can%20I%20know%20further%20about%20Phone%20Major%20Services.','_blank')" 
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+    </div>
+
+    <!-- Charging Port Repair -->
+    <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+        <i class="fas fa-charging-station text-blue-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">Charging Port Repair</h3>
+        <p class="text-gray-600 mb-4">Fix faulty charging ports for reliable and safe charging.</p>
+        <div class="flex justify-between items-center">
+        <span class="text-2xl font-bold text-blue-600">From RM50</span>
+        <button onclick="window.open('https://wa.me/60173045090?text=Hello%20can%20I%20know%20further%20about%20Charging%20Port%20Repair.','_blank')" 
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+    </div>
+
+    <!-- Camera Repair -->
+    <div class="service-card bg-white rounded-xl p-6 shadow-md">
+        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+        <i class="fas fa-camera text-red-600 text-xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">Camera Repair</h3>
+        <p class="text-gray-600 mb-4">Repair or replace malfunctioning phone cameras with original parts.</p>
+        <div class="flex justify-between items-center">
+        <span class="text-2xl font-bold text-red-600">From RM80</span>
+        <button onclick="window.open('https://wa.me/60173045090?text=Hello%20can%20I%20know%20further%20about%20Camera%20Repair.','_blank')" 
+                class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Learn More</button>
+        </div>
+    </div>
+    </div>
+    <p class="text-gray-600 mb-4">Wanna negotiate? hmu.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+    
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Get In Touch</h2>
+                    <p class="text-gray-600 mb-8">Have questions about our services? Need a quote? Contact us today and I will get back to you ASAP.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-phone text-green-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Phone</h4>
+                                <p class="text-gray-600">+60 173045090</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Email</h4>
+                                <p class="text-gray-600">alsanudinnnn@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Send me a Review :)</h3>
+                    <form id="reviewForm" class="space-y-6">
+                        <div>
+                            <label class="block mb-2 font-medium">Choose Your Meow Profile Picture</label>
+                                <div class="grid grid-cols-5 gap-4 mb-4">
+                                <label>
+                                    <input type="radio" name="profilePic" value="avatar1.png" class="hidden">
+                                    <img src="avatar1.png" class="w-16 h-16 rounded-full border cursor-pointer">
+                                </label>
+                                <label>
+                                    <input type="radio" name="profilePic" value="avatar2.png" class="hidden"">
+                                    <img src="avatar2.png" class="w-16 h-16 rounded-full border cursor-pointer">
+                                </label>
+                                <label>
+                                    <input type="radio" name="profilePic" value="avatar3.png" class="hidden">
+                                    <img src="avatar3.png" class="w-16 h-16 rounded-full border cursor-pointer">
+                                </label>
+                                <label>
+                                    <input type="radio" name="profilePic" value="avatar4.png" class="hidden">
+                                    <img src="avatar4.png" class="w-16 h-16 rounded-full border cursor-pointer">
+                                </label>
+                                <label>
+                                    <input type="radio" name="profilePic" value="avatar5.png" class="hidden">
+                                    <img src="avatar5.png" class="w-16 h-16 rounded-full border cursor-pointer">
+                                </label>
+                                <label>
+                                    <input type="radio" name="profilePic" value="avatar6.png" class="hidden">
+                                    <img src="avatar6.png" class="w-16 h-16 rounded-full border cursor-pointer">
+                                </label>
+                                <label>
+                                    <input type="radio" name="profilePic" value="avatar7.png" class="hidden">
+                                    <img src="avatar7.png" class="w-16 h-16 rounded-full border cursor-pointer">
+                                </label>
+                                <label>
+                                    <input type="radio" name="profilePic" value="avatar8.png" class="hidden">
+                                    <img src="avatar8.png" class="w-16 h-16 rounded-full border cursor-pointer">
+                                </label>
+                                <label>
+                                    <input type="radio" name="profilePic" value="avatar9.png" class="hidden">
+                                    <img src="avatar9.png" class="w-16 h-16 rounded-full border cursor-pointer">
+                                </label>
+                                <label>
+                                    <input type="radio" name="profilePic" value="avatar10.png" class="hidden">
+                                    <img src="avatar10.png" class="w-16 h-16 rounded-full border cursor-pointer">
+                                </label>
+                            </div>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" id="firstName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" id="lastName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Services</label>
+                            <select id="serviceNeeded" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option>Select a service</option>
+                                <option>RAM Upgrade</option>
+                                <option>SSD Installation</option>
+                                <option>Battery Replacement</option>
+                                <option>Major Services</option>
+                                <option>Custom OS / Clean Windows Install</option>
+                                <option>Phone Services</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Rating</label>
+                            <div id="starRating" class="flex space-x-2 text-2xl text-gray-400 cursor-pointer">
+                                <i class="fas fa-star" data-value="1"></i>
+                                <i class="fas fa-star" data-value="2"></i>
+                                <i class="fas fa-star" data-value="3"></i>
+                                <i class="fas fa-star" data-value="4"></i>
+                                <i class="fas fa-star" data-value="5"></i>
+                            </div>
+                            <input type="hidden" id="rating" required>
+                            </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section id="feedback" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Customer Feedback</h2>
+                <p class="text-xl text-gray-600">See what our customers have to say about our services</p>
+            </div>
+            <div id="feedbackList" class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Feedback items will be appended here -->
+            </div>
+        </div>
+    </section>
+
+<!-- Firebase SDK v8 -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script>
+  // ✅ Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDdsQ6MhQ-4cUA7zi0NTR8KeUMST0dsZko",
+    authDomain: "laptopservices-a243c.firebaseapp.com",
+    databaseURL: "https://laptopservices-a243c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "laptopservices-a243c",
+    storageBucket: "laptopservices-a243c.appspot.com",
+    messagingSenderId: "1040396271371",
+    appId: "1:1040396271371:web:0999de3fb3104ed4df2c0e",
+    measurementId: "G-YTT2GE2B02"
+  };
+
+  // ✅ Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  // ✅ Load stats from Firebase
+  db.ref("stats").on("value", (snapshot) => {
+    const data = snapshot.val() || {};
+    document.getElementById("statLaptops").innerText = data.laptops || 0;
+    document.getElementById("statSuccess").innerText = data.success || "0%";
+    document.getElementById("statTurnaround").innerText = data.turnaround || "0";
+    document.getElementById("statClients").innerText = data.clients || 0;
+  });
+
+  // ✅ Mobile Menu Toggle
+  const mobileMenuButton = document.getElementById('mobileMenuButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+
+  const laptopTab = document.getElementById("laptopTab");
+  const phoneTab = document.getElementById("phoneTab");
+  const laptopServices = document.getElementById("laptopServices");
+  const phoneServices = document.getElementById("phoneServices");
+
+  laptopTab.addEventListener("click", () => {
+    laptopServices.classList.remove("hidden");
+    phoneServices.classList.add("hidden");
+    laptopTab.classList.add("border-blue-600", "text-blue-600");
+    laptopTab.classList.remove("text-gray-600", "border-transparent");
+    phoneTab.classList.remove("border-blue-600", "text-blue-600");
+    phoneTab.classList.add("text-gray-600", "border-transparent");
+  });
+
+  phoneTab.addEventListener("click", () => {
+    phoneServices.classList.remove("hidden");
+    laptopServices.classList.add("hidden");
+    phoneTab.classList.add("border-blue-600", "text-blue-600");
+    phoneTab.classList.remove("text-gray-600", "border-transparent");
+    laptopTab.classList.remove("border-blue-600", "text-blue-600");
+    laptopTab.classList.add("text-gray-600", "border-transparent");
+  });
+</script>
+<script src="mail.js"></script>
+</body>
+</html>

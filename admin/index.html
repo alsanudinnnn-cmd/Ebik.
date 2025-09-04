@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Control Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Firebase SDK v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="max-w-4xl mx-auto mt-10 space-y-10">
+
+    <!-- 📊 Stats Control -->
+    <div class="bg-white p-8 rounded-xl shadow-lg">
+      <h1 class="text-3xl font-bold text-gray-800 mb-6">📊 Update Stats</h1>
+      <form id="statsForm" class="space-y-6">
+        <div>
+          <label class="block text-gray-700 font-medium">Laptops Repaired</label>
+          <input type="number" id="laptops" class="w-full px-4 py-2 border rounded-lg" required>
+        </div>
+        <div>
+          <label class="block text-gray-700 font-medium">Success Rate (%)</label>
+          <input type="text" id="success" placeholder="e.g. 99%" class="w-full px-4 py-2 border rounded-lg" required>
+        </div>
+        <div>
+          <label class="block text-gray-700 font-medium">Avg. Turnaround (Days)</label>
+          <input type="number" id="turnaround" class="w-full px-4 py-2 border rounded-lg" required>
+        </div>
+        <div>
+          <label class="block text-gray-700 font-medium">Happy Clients</label>
+          <input type="number" id="clients" class="w-full px-4 py-2 border rounded-lg" required>
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">
+          Save Stats
+        </button>
+      </form>
+
+      <!-- Display Current Stats -->
+      <div class="mt-10">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">🔍 Current Stats</h2>
+        <div id="currentStats" class="space-y-2 text-gray-700"></div>
+      </div>
+    </div>
+
+    <!-- ⭐ Review Management -->
+    <div class="bg-white p-8 rounded-xl shadow-lg">
+      <h1 class="text-3xl font-bold text-gray-800 mb-6">⭐ Manage Reviews</h1>
+      <div id="reviewsContainer" class="space-y-4"></div>
+    </div>
+
+  </div>
+
+  <script>
+    // ✅ Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDdsQ6MhQ-4cUA7zi0NTR8KeUMST0dsZko",
+      authDomain: "laptopservices-a243c.firebaseapp.com",
+      databaseURL: "https://laptopservices-a243c-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "laptopservices-a243c",
+      storageBucket: "laptopservices-a243c.appspot.com",
+      messagingSenderId: "1040396271371",
+      appId: "1:1040396271371:web:0999de3fb3104ed4df2c0e",
+      measurementId: "G-YTT2GE2B02"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // ====================== 📊 STATS SECTION ======================
+    document.getElementById("statsForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const laptops = document.getElementById("laptops").value;
+      const success = document.getElementById("success").value;
+      const turnaround = document.getElementById("turnaround").value;
+      const clients = document.getElementById("clients").value;
+
+      db.ref("stats").set({
+        laptops,
+        success,
+        turnaround,
+        clients
+      }).then(() => {
+        alert("✅ Stats updated successfully!");
+      }).catch((err) => {
+        console.error("Error:", err);
+        alert("❌ Failed to update stats.");
+      });
+    });
+
+    const currentStatsDiv = document.getElementById("currentStats");
+    db.ref("stats").on("value", (snapshot) => {
+      const data = snapshot.val() || {};
+      currentStatsDiv.innerHTML = `
+        <p><strong>Laptops Repaired:</strong> ${data.laptops || 0}</p>
+        <p><strong>Success Rate:</strong> ${data.success || "0%"}</p>
+        <p><strong>Avg. Turnaround:</strong> ${data.turnaround || 0}</p>
+        <p><strong>Happy Clients:</strong> ${data.clients || 0}</p>
+      `;
+      document.getElementById("laptops").value = data.laptops || 0;
+      document.getElementById("success").value = data.success || "0%";
+      document.getElementById("turnaround").value = data.turnaround || 0;
+      document.getElementById("clients").value = data.clients || 0;
+    });
+
+    // ====================== ⭐ REVIEWS SECTION ======================
+    const reviewsContainer = document.getElementById("reviewsContainer");
+
+    db.ref("reviews").on("child_added", (snapshot) => {
+      const review = snapshot.val();
+      const key = snapshot.key;
+
+      const reviewItem = document.createElement("div");
+      reviewItem.setAttribute("id", key);
+      reviewItem.className = "p-4 border rounded-lg shadow flex justify-between items-start";
+      reviewItem.innerHTML = `
+        <div>
+          <div class="flex space-x-2">
+  <h4 class="font-semibold text-gray-800">${review.firstName}</h4>
+  <h4 class="font-semibold text-gray-800">${review.lastName}</h4>
+</div>
+          <p class="text-gray-600">${review.serviceNeeded}</p>
+          <p class="text-gray-600">${review.message}</p>
+          <p class="text-yellow-500">⭐ ${review.rating}</p>
+        </div>
+        <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded" onclick="deleteReview('${key}')">Delete</button>
+      `;
+      reviewsContainer.appendChild(reviewItem);
+    });
+
+    db.ref("reviews").on("child_removed", (snapshot) => {
+      const key = snapshot.key;
+      const reviewItem = document.getElementById(key);
+      if (reviewItem) reviewItem.remove();
+    });
+
+    function deleteReview(key) {
+      if (confirm("Are you sure you want to delete this review?")) {
+        db.ref("reviews/" + key).remove()
+          .then(() => console.log("Review deleted:", key))
+          .catch((error) => console.error("Error deleting review:", error));
+      }
+    }
+  </script>
+</body>
+</html>
