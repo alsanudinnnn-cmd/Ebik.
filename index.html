@@ -266,9 +266,166 @@
       position: absolute;
       pointer-events: none;
     }
+
+    /* Promotional Popup Styles */
+    .promo-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .promo-popup-overlay.hidden {
+      display: none;
+    }
+
+    .promo-popup-content {
+      background: white;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      padding: 40px 30px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      position: relative;
+      animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: center;
+    }
+
+    .promo-popup-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+      transition: color 0.3s ease;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .promo-popup-close:hover {
+      color: #333;
+    }
+
+    .promo-popup-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E72);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .promo-popup-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .promo-popup-subtitle {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 25px;
+      line-height: 1.5;
+    }
+
+    .promo-popup-discount {
+      font-size: 48px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #0072ff, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+
+    .promo-popup-cta {
+      background: linear-gradient(90deg, #0072ff, #00c6ff);
+      color: white;
+      padding: 14px 40px;
+      border-radius: 50px;
+      border: none;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0, 114, 255, 0.3);
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+
+    .promo-popup-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 114, 255, 0.4);
+    }
+
+    .promo-popup-dismiss {
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .promo-popup-dismiss:hover {
+      color: #666;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-800 antialiased">
+
+  <!-- Promotional Popup -->
+  <div class="promo-popup-overlay" id="promoPopup" style="display: flex;">
+    <div class="promo-popup-content">
+      <button class="promo-popup-close" onclick="closePromoPopup()">×</button>
+      <img src="posterpromotion.png" alt="Promotion" style="width: 100%; max-width: 450px; border-radius: 12px; margin-bottom: 20px;">
+      <h2 class="promo-popup-title">POLITEKNIK MERSING STUDENT PROMOTION</h2>
+      <p style="font-size: 14px; color: #999; margin-bottom: 25px;">Valid only for Politeknik Mersing Student</p>
+      <a href="https://api.whatsapp.com/send?phone=60173045090&text=Helo%20ebik.%20can%20I%20know%20futher%20more%20about%20Software%2FOS%20for%20Politenik%20Mersing%20Student%3F" target="_blank" style="text-decoration: none;"><button class="promo-popup-cta">Contact Now</button></a>
+      <br>
+      <button class="promo-popup-dismiss" onclick="closePromoPopup()">Not interested</button>
+    </div>
+  </div>
 
   <!-- Blobs -->
   <div class="blob w-72 h-72 bg-indigo-300 rounded-full left-4 top-20" style="position: absolute; transform: translate(-20%, -20%);"></div>
@@ -928,6 +1085,24 @@ renderServices("laptop");
     phoneTab.classList.remove("text-gray-600", "border-transparent");
     laptopTab.classList.remove("border-blue-600", "text-blue-600");
     laptopTab.classList.add("text-gray-600", "border-transparent");
+  });
+
+  // Promotional Popup Functions
+  function closePromoPopup() {
+    const promoPopup = document.getElementById('promoPopup');
+    promoPopup.style.display = 'none';
+  }
+
+  function handlePromoAction() {
+    alert('Thank you! Please contact us for more information about our Politeknik Mersing Student promotion.');
+    closePromoPopup();
+  }
+
+  // Close popup when clicking outside the content area
+  document.getElementById('promoPopup').addEventListener('click', function(event) {
+    if (event.target === this) {
+      closePromoPopup();
+    }
   });
 </script>
 <script src="mail.js"></script>
