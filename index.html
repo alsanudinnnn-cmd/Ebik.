@@ -410,6 +410,91 @@
         transform: translateY(0);
       }
     }
+
+    /* Promo Carousel Styles */
+    .promo-carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 450px;
+      margin: 0 auto 20px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .promo-carousel-wrapper {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .promo-carousel-slide {
+      min-width: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .promo-carousel-slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .promo-carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      color: #333;
+      font-size: 20px;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      z-index: 10;
+      transition: background 0.3s ease;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .promo-carousel-btn:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .promo-carousel-btn.prev {
+      left: 10px;
+    }
+
+    .promo-carousel-btn.next {
+      right: 10px;
+    }
+
+    .promo-carousel-dots {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .promo-carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .promo-carousel-dot.active {
+      background: rgba(255, 255, 255, 1);
+    }
   </style>
 </head>
 <body class="bg-gray-50 font-sans text-gray-800 antialiased">
@@ -418,7 +503,25 @@
   <div class="promo-popup-overlay" id="promoPopup" style="display: flex;">
     <div class="promo-popup-content">
       <button class="promo-popup-close" onclick="closePromoPopup()">×</button>
-      <img src="posterpromotion.png" alt="Promotion" style="width: 100%; max-width: 450px; border-radius: 12px; margin-bottom: 20px;">
+      
+      <!-- Promo Carousel -->
+      <div class="promo-carousel-container">
+        <div class="promo-carousel-wrapper" id="promoCarouselWrapper">
+          <div class="promo-carousel-slide">
+            <img src="posterpromotion.png" alt="Promotion 1">
+          </div>
+          <div class="promo-carousel-slide">
+            <img src="posterpromotion2.jpeg" alt="Promotion 2">
+          </div>
+        </div>
+        <button class="promo-carousel-btn prev" id="promoPrevBtn" onclick="changePromoSlide(-1)">❮</button>
+        <button class="promo-carousel-btn next" id="promoNextBtn" onclick="changePromoSlide(1)">❯</button>
+        <div class="promo-carousel-dots">
+          <span class="promo-carousel-dot active" onclick="goToPromoSlide(0)"></span>
+          <span class="promo-carousel-dot" onclick="goToPromoSlide(1)"></span>
+        </div>
+      </div>
+
       <h2 class="promo-popup-title">POLITEKNIK MERSING STUDENT PROMOTION</h2>
       <p style="font-size: 14px; color: #999; margin-bottom: 25px;">Valid only for Politeknik Mersing Student</p>
       <a href="https://api.whatsapp.com/send?phone=60173045090&text=Helo%20ebik.%20can%20I%20know%20futher%20more%20about%20Software%2FOS%20for%20Politenik%20Mersing%20Student%3F" target="_blank" style="text-decoration: none;"><button class="promo-popup-cta">Contact Now</button></a>
@@ -452,6 +555,9 @@
         </nav>
 
         <div class="flex items-center gap-3">
+          <button onclick="openPromoPopup()" class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-500 text-white text-sm font-semibold hover:bg-orange-600 shadow">
+            <i class="fas fa-fire"></i> Promotion!
+          </button>
           <a href="https://wa.me/60173045090" target="_blank" class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500 text-white text-sm font-semibold hover:bg-green-600 shadow">
             <i class="fab fa-whatsapp"></i> WhatsApp
           </a>
@@ -472,6 +578,7 @@
         <a href="#stats" class="py-2">Stats</a>
         <a href="#contact" class="py-2">Contact</a>
         <a href="#feedback" class="py-2">Feedback</a>
+        <a href="#" onclick="openPromoPopup(); return false;" class="py-2">Promotion!</a>
       </div>
     </div>
   </header>
@@ -763,9 +870,11 @@ renderServices("laptop");
                 <div class="carousel-slide">
                   <img src="profile1.jpg" alt="Profile photo 1">
                 </div>
-                <div class="carousel-slide">
-                  <img src="profile2.jpg" alt="Profile photo 2">
-                </div>
+              <div class="carousel-slide">
+                <video autoplay muted loop playsinline>
+                  <source src="video1.mp4" type="video/mp4">
+                </video>
+              </div>
                 <div class="carousel-slide">
                   <img src="profile3.jpg" alt="Profile photo 3">
                 </div>
@@ -1088,6 +1197,11 @@ renderServices("laptop");
   });
 
   // Promotional Popup Functions
+  function openPromoPopup() {
+    const promoPopup = document.getElementById('promoPopup');
+    promoPopup.style.display = 'flex';
+  }
+
   function closePromoPopup() {
     const promoPopup = document.getElementById('promoPopup');
     promoPopup.style.display = 'none';
@@ -1104,6 +1218,40 @@ renderServices("laptop");
       closePromoPopup();
     }
   });
+
+  // Promo Carousel Functions
+  let promoCurrentSlide = 0;
+  const promoTotalSlides = 2;
+
+  function changePromoSlide(direction) {
+    promoCurrentSlide += direction;
+    if (promoCurrentSlide >= promoTotalSlides) {
+      promoCurrentSlide = 0;
+    } else if (promoCurrentSlide < 0) {
+      promoCurrentSlide = promoTotalSlides - 1;
+    }
+    updatePromoCarousel();
+  }
+
+  function goToPromoSlide(index) {
+    promoCurrentSlide = index;
+    updatePromoCarousel();
+  }
+
+  function updatePromoCarousel() {
+    const wrapper = document.getElementById('promoCarouselWrapper');
+    const dots = document.querySelectorAll('.promo-carousel-dot');
+    const offset = -promoCurrentSlide * 100;
+    wrapper.style.transform = `translateX(${offset}%)`;
+
+    dots.forEach((dot, index) => {
+      if (index === promoCurrentSlide) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
 </script>
 <script src="mail.js"></script>
 </body>

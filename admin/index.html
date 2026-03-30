@@ -10,7 +10,30 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body class="bg-gray-100 font-sans">
-  <div class="max-w-4xl mx-auto mt-10 space-y-10">
+  <!-- 🔐 Login Modal -->
+  <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl shadow-2xl p-8 w-96">
+      <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">🔐 Admin Login</h1>
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-gray-700 font-medium mb-2">Username</label>
+          <input type="text" id="loginUsername" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Enter username" required>
+        </div>
+        <div>
+          <label class="block text-gray-700 font-medium mb-2">Password</label>
+          <input type="password" id="loginPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700">
+          Login
+        </button>
+      </form>
+      <p id="loginError" class="text-red-500 text-sm mt-4 text-center hidden"></p>
+    </div>
+  </div>
+
+  <!-- Main Content (Hidden until login) -->
+  <div id="mainContent" class="hidden">
+    <div class="max-w-4xl mx-auto mt-10 space-y-10">
 
     <!-- 📊 Stats Control -->
     <div class="bg-white p-8 rounded-xl shadow-lg">
@@ -52,7 +75,32 @@
 
   </div>
 
+    </div>
+  </div>
+
   <script>
+    // ✅ LOGIN VALIDATION
+    const VALID_USERNAME = "ebik";
+    const VALID_PASSWORD = "Alsanudin1!";
+
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById("loginUsername").value;
+      const password = document.getElementById("loginPassword").value;
+      const errorMsg = document.getElementById("loginError");
+
+      if (username === VALID_USERNAME && password === VALID_PASSWORD) {
+        document.getElementById("loginModal").classList.add("hidden");
+        document.getElementById("mainContent").classList.remove("hidden");
+        errorMsg.classList.add("hidden");
+      } else {
+        errorMsg.textContent = "❌ Invalid username or password!";
+        errorMsg.classList.remove("hidden");
+        document.getElementById("loginPassword").value = "";
+      }
+    });
+
     // ✅ Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyDdsQ6MhQ-4cUA7zi0NTR8KeUMST0dsZko",
@@ -143,5 +191,6 @@
       }
     }
   </script>
+  </div>
 </body>
 </html>
